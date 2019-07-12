@@ -1,0 +1,24 @@
+{% extends "_layout" %}
+
+{% block content %}
+<header>
+	<div class="grid-container">
+		<div class="grid-x grid-margin-x">
+			<div class="cell">	
+				{{ entry.title }}
+			</div>
+		</div>
+	</div>
+</header>
+
+<main id="main">
+	<div class="grid-container">
+		<div class="grid-x grid-margin-x">
+			<div class="cell">
+				<time>Posted on {{ entry.postDate.format('F d, Y') }}</time>	
+				{{ entry.body }}
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}

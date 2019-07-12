@@ -1,0 +1,56 @@
+{# 
+	Create a link to an entry 
+	entryId (number): The ID of the entry to be linked. Example: 2
+#}
+{% macro linkToEntry(entryId) %} 
+  {% set linkedEntry = craft.entries.id(entryId).one() %}
+  {% if linkedEntry %}
+      <a href="{{ linkedEntry.url }}">{{ linkedEntry.title }}</a>
+  {% endif %}
+{% endmacro %}
+
+{# 
+	Create a button 
+	pageId (number): The ID of the entry the button will link to. Example: 2
+	classes (string): Additional classes to apply. Example: 'large'
+	text (string): The text of the button. Example: 'Buy Now'
+#}
+{% macro button(entryId, classes, text) %}
+	<a href="{{ craft.entries.id(entryId).one().url }}" class="button {{ classes }}">text</a>
+{% endmacro %}
+
+{# 
+	Display a single image if it exists, a placeholder if it doesn't 
+	img (field): Example: entry.image
+	imgTitle (field or string): Example: entry.title or or entry.image.one().title or 'CEO Headshot'
+	placeholderSize (string): The size of the placeholder image. Example: '800x600'
+	transform (variable): The transform to apply to the image. NOTE: This must be set on the page the macro is being called. Example: landscape
+#}
+{% macro displayImage(img, imgTitle, placeholderSize, transform) %}
+	{% if img|length %}
+		{% set theImage = img.one() %}
+		{% set imageUrl = theImage.getUrl(transform) %}
+	{% else %}
+		{% set imageUrl = 'https://imgplaceholder.com/{{ placeholderSize }}/E0E0E0/BDBDBD/fa-image?font-size=40' %}
+	{% endif %}
+	<img src="{{ imageUrl }}" alt="{{ imgTitle }}" />
+{% endmacro %}
+
+{# 
+	Create an excerpt from a Redactor field 
+	field (field): The field the excerpt should use. Example: entry.body
+	characters (number): The number of words the excerpt should have. Example: 150
+#}
+{% macro excerpt(field, characters) %}
+	{% set body = field|striptags|trim %}
+	{% if body|length > characters %}{% set body_array = body|split(' ') %}{% set body_word_count = 0 %}{% for ta in body_array %}{% set word_count = ta|length %}{% if body_word_count < characters %}{% set body_word_count = body_word_count + word_count %}{{ ta }} {% endif %}{% endfor %}...{% else %}{{ body }}{% endif %}
+{% endmacro %}
+
+{# 
+	Add an active class if "e" matches the last URI segment 
+	e (string or field): What the last URI segment should match. Example: 'home' or entry.slug
+#}
+{% macro currentPage(e) %}
+  {% set lastSegment = craft.app.request.segments|last %}
+  {% if lastSegment == e %}class="active"{% endif %}
+{% endmacro %}
