@@ -1,5 +1,5 @@
 
-# Craft 3 Boilerplate with Foundation 6, JS and SASS Compiler, Templates and More
+# Craft 3 Boilerplate with Foundation 6, JS and SASS Compiler, Templates, Macros and More
 
 ## What’s in it?
 
