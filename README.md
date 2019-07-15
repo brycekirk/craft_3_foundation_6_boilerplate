@@ -34,7 +34,9 @@
 
 ## Start developing
 
+* Login to the Craft control panel and update Craft and Redactor to their latest versions
 * Run `gulp watch` from your project directory to watch for changes to `assets/js/src/scripts.js` and `assets/scss/styles.scss`
+
 
 ##  More info
 * `config/project.yaml` will generate some initial fields: `body`, `image`, `defaultMetaDescription` and `defaultSocialImage`, a homepage entry and an images asset volume located at `assets/uploads/img`
